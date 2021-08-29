@@ -54,7 +54,6 @@
 </template>
 
 <script>
-// import wait from "@/lib/wait.js";
 export default {
   data() {
     return {
@@ -91,7 +90,7 @@ export default {
   methods: {
     startGame() {
       this.isGameStarted = true;
-      this.info = "Wait for computer";
+      this.setInfo("Wait for computer");
       this.nextRound();
     },
 
@@ -99,7 +98,7 @@ export default {
       this.round++;
       this.playerSequence.length = 0;
       this.areButtonsDisabled = true;
-      this.info = "Wait for computer";
+      this.setInfo("Wait for computer");
 
       this.gameSequence.push(this.getRandomNumber());
       this.playRound();
@@ -129,7 +128,7 @@ export default {
 
     playerTurn(round) {
       this.areButtonsDisabled = false;
-      this.info = `Your turn:  press ${round} button${round > 1 ? "s" : ""}`;
+      this.setInfo(`Your turn:  press ${round} button${round > 1 ? "s" : ""}`);
     },
 
     handlePress(id) {
@@ -161,9 +160,11 @@ export default {
         return;
       }
 
-      this.info = `Your turn:  press ${remainingButtons} button${
-        remainingButtons > 1 ? "s" : ""
-      }`;
+      this.setInfo(
+        `Your turn:  press ${remainingButtons} button${
+          remainingButtons > 1 ? "s" : ""
+        }`
+      );
     },
 
     getRandomNumber() {
@@ -181,6 +182,9 @@ export default {
 
     clearPlayerSequence() {
       this.playerSequence.length = 0;
+    },
+    setInfo(info) {
+      this.info = info;
     },
   },
 };
@@ -205,12 +209,6 @@ export default {
   &:disabled {
     cursor: not-allowed;
     pointer-events: none;
-    /* opacity: 0.6; */
-
-    /* button {
-      cursor: not-allowed;
-      pointer-events: none;
-    } */
   }
 }
 
